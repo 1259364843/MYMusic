@@ -1,0 +1,10 @@
+/* pages/detail-video/index.wxss */
+page {
+    padding-top: 225px;
+}
+.video {
+    /* 固定定位，不滚动 */
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
