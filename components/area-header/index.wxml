@@ -1,7 +1,8 @@
 <!--components/area-header/index.wxml-->
 <view class="header">
   <view class="title">{{title}}</view>
-  <view class="right" wx:if="{{showRight}}">
+  <!-- 监听点击事件bindtap -->
+  <view class="right" wx:if="{{showRight}}" bindtap="handleRightClick">
     <view class="slot"><slot></slot></view>
     <view class="default">
       <text>{{rightText}}</text>

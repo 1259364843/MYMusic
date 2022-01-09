@@ -3,12 +3,14 @@
     "pages/home-music/index",
     "pages/home-video/index",
     "pages/detail-video/index",
-    "pages/detail-search/index"
+    "pages/detail-search/index",
+    "pages/detail-songs/index",
+    "pages/music-player/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fafafa",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "MYMusic",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

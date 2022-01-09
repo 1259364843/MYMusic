@@ -1,0 +1,12 @@
+/* pages/detail-songs/index.wxss */
+page {
+  padding: 0 20rpx;
+}
+
+/* 榜单标题 */
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-weight: 500;
+}

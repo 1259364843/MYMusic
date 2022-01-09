@@ -1,6 +1,7 @@
 // pages/home-music/index.js
 import {
-  rankingStore
+  rankingStore,
+  rankingMap
 } from '../../store/index'
 import {
   getBanners,
@@ -24,7 +25,7 @@ Page({
     // 歌单数据
     hotSongMenu: [],
     recommendSongMenu: [],
-
+    recommendSongs: [],
     // 榜单的数据
     rankings: {
       0: {},
@@ -49,7 +50,7 @@ Page({
       this.setData({
         recommendSongs: recommendSongs
       });
-      // 榜单数据
+      // 获取三种榜单的数据
       rankingStore.onState("newRanking", this.getRankingHandler(0))
       rankingStore.onState("originRanking", this.getRankingHandler(2))
       rankingStore.onState("upRanking", this.getRankingHandler(3))
@@ -97,19 +98,42 @@ Page({
       })
     })
   },
+  // 监听更多点击
+  handleMoreClick: function() {
+    this.navigateToDetailSongsPage("hotRanking")
+  },
+
+  handleRankingItemClick: function(event) {
+    const idx = event.currentTarget.dataset.idx
+    const rankingName = rankingMap[idx]
+    console.log(rankingMap[idx]);
+    this.navigateToDetailSongsPage(rankingName)
+  },
+  navigateToDetailSongsPage: function(rankingName) {
+    wx.navigateTo({
+      // &type=rank表示是榜单的数据
+      url: `/pages/detail-songs/index?ranking=${rankingName}&type=rank`,
+    })
+  },
   onUnload: function () {
 
   },
 
   // 从store中获取共享数据
   getRankingHandler: function (idx) {
+    // 返回一个函数
     return (res) => {
+      // 判断对象中有没有值
       if (Object.keys(res).length === 0) return
       console.log("idx:", idx)
       const name = res.name
+      // 封面图
       const coverImgUrl = res.coverImgUrl
+      // 播放量
       const playCount = res.playCount
+      // 获取榜单中的三条数据
       const songList = res.tracks.slice(0, 3)
+      // 榜单数据对象
       const rankingObj = {
         name,
         coverImgUrl,
@@ -120,6 +144,7 @@ Page({
         ...this.data.rankings,
         [idx]: rankingObj
       }
+      // 响应式赋值
       this.setData({
         rankings: newRankings
       })

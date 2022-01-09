@@ -1,2 +1,2 @@
 // 统一导出的出口
-export { rankingStore } from './ranking-store';
+export { rankingStore,rankingMap } from './ranking-store';

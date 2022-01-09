@@ -1,9 +1,13 @@
-// components/song-item-v1/index.js
+// components/song-item-v2/index.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
+    index: {
+      type: Number,
+      value: 0
+    },
     item: {
       type: Object,
       value: {}

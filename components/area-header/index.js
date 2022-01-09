@@ -29,6 +29,9 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    handleRightClick: function() {
+      // 向外部发送一个事件
+      this.triggerEvent("click")
+    }
   }
 })
