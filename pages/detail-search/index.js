@@ -44,6 +44,8 @@ Page({
     if (!searchValue.length) {
       this.setData({ suggestSongs: [] })
       this.setData({ resultSongs: [] })
+      // 取消请求
+      debounceGetSearchSuggest.cancel()
       return
     }
 
@@ -53,6 +55,7 @@ Page({
       const suggestSongs = res.result.allMatch
       // 赋值
       this.setData({ suggestSongs })
+      if(!suggestSongs) return;
 
       // 2.转成nodes节点
       const suggestKeywords = suggestSongs.map(item => item.keyword)

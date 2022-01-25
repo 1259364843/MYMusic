@@ -1,0 +1,53 @@
+/* components/navigation-bar/index.wxss */
+/* 状态栏 */
+.status {
+  background-color: red;
+}
+
+/* 导航栏部分 */
+.nav-bar {
+  display: flex;
+  height: 44px;
+  text-align: center;
+}
+
+/* 左右共用属性 */
+.left, .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+}
+
+.left .left-arrow {
+  /* 默认不展示 */
+  display: none;
+}
+/* 插槽 */
+.left-slot:empty + .left-arrow {
+  /* 插槽没有内容才展示 */
+  display: block;
+}
+
+/* 图标 */
+.left .left-arrow .icon {
+  width: 44rpx;
+  display: block;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* 标题部分 */
+.center-title {
+  /* 默认不显示 */
+  display: none;
+}
+/* 插槽 */
+.center-slot:empty + .center-title {
+  /* 插槽没有内容才展示 */
+  display: block;
+}

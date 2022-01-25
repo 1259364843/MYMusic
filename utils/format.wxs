@@ -22,7 +22,7 @@ function formatDuration(duration) {
     // 分钟
     var minute = Math.floor(duration / 60);
     // 秒钟
-    var second = duration % 60;
+    var second = Math.floor(duration) % 60
     return padLeftZero(minute) + ':' + padLeftZero(second);
 }
 // 小程序中只能用commonjs导出
