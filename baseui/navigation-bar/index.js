@@ -31,6 +31,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    // 处理左部分点击
+    handleLeftClick() {
+      // 向外发送事件
+      this.triggerEvent('click');
+    }
   }
 })

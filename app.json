@@ -11,8 +11,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fafafa",
     "navigationBarTitleText": "MYMusic",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "black"
   },
+  "requiredBackgroundModes": ["audio"],
   "tabBar": {
     "list": [
       {

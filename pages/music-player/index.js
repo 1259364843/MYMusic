@@ -1,14 +1,19 @@
 // pages/music-player/index.js
-import {
-  getSongDetail,
-  getSongLyric
-} from '../../service/api_player';
-// 解析歌词方法
-import { parseLyric } from '../../utils/parse-lyric';
+// import {
+//   getSongDetail,
+//   getSongLyric
+// } from '../../service/api_player';
+// // 解析歌词方法
+// import { parseLyric } from '../../utils/parse-lyric';
 // 播放
 import {
-  audioContext
+  audioContext,
+  playerStore
 } from '../../store/index'
+
+// 播放模式数组
+const playModeNames = ["order", "repeat", "random"];
+
 Page({
 
   /**
@@ -37,6 +42,14 @@ Page({
     currentLyricIndex: 0,
     // 当前时间的歌词
     currentLyricText: '',
+    lyricScrollTop: 0,
+    // 播放模式index
+    playModeIndex: 0,
+    // 播放模式
+    playModeName: "order",
+    // 歌曲是否播放
+    isPlaying: false,
+    playingName: "pause"
   },
 
   /**
@@ -50,7 +63,8 @@ Page({
     });
 
     // 2.根据id获取歌曲信息
-    this.getPageData(id);
+    // this.getPageData(id);
+    this.setupPlayStoreListener();
 
     // 3.计算内容部分高度
     const globalData = getApp().globalData;
@@ -66,75 +80,14 @@ Page({
     });
 
     // 4.使用audioContext播放歌曲
-    audioContext.stop();
-    audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
-    // 立即播放
-    audioContext.autoplay = true;
+    // audioContext.stop();
+    // audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
+    // // 立即播放
+    // audioContext.autoplay = true;
 
     // 5.audioContext的事件监听
-    this.setupAudioContextListener()
+    // this.setupAudioContextListener()
 
-  },
-
-  // ****************网络请求方法****************
-  getPageData: function (id) {
-    getSongDetail(id).then(res => {
-      this.setData({
-        currentSong: res.songs[0],
-        durationTime: res.songs[0].dt
-      });
-    }),
-    // 获取歌词
-    getSongLyric(id).then(res => {
-      const lyricString = res.lrc.lyric;
-      // 解析
-      const lyrics = parseLyric(lyricString);
-      console.log(lyrics);
-      // 存储歌词
-      this.setData({ lyricInfos: lyrics });
-    })
-  },
-  // ****************事件监听****************
-  setupAudioContextListener: function () {
-    // 准备好后才播放歌曲
-    audioContext.onCanplay(() => {
-      audioContext.play()
-    })
-    // 对时间更新监听,监听时间改变
-    audioContext.onTimeUpdate(() => {
-      // console.log(audioContext.currentTime);
-      // 1.获取当前播放进度
-      const currentTime = audioContext.currentTime * 1000;
-
-      // 2.获取silder进度条的位置
-      // 拖动结束才更改时间,根据当前时间修改currentTime
-      if (!this.data.isSliderChanging) {
-        const sliderValue = currentTime / this.data.durationTime * 100;
-        this.setData({
-          sliderValue,
-          currentTime
-        });
-      }
-      // console.log(sliderValue);
-
-      // 3.根据当前时间去查找播放的歌词
-      let i = 0;
-      for (; i < this.data.lyricInfos.length; i++) {
-        const lyricInfo = this.data.lyricInfos[i];
-        if (currentTime < lyricInfo.time ) {
-          break;
-        }
-      }
-      // 设置当前歌词的索引和内容
-      const currentIndex = i - 1;
-      // 判断索引
-      if( this.data.currentLyricIndex !== currentIndex ) {
-        const currentLyricInfo = this.data.lyricInfos[currentIndex];
-        console.log(currentLyricInfo);
-        // 设置歌词
-        this.setData({ currentLyricText: currentLyricInfo.text, currentLyricIndex: currentIndex })
-      }
-    })
   },
   // ****************事件处理****************
 
@@ -155,7 +108,7 @@ Page({
     const currentTime = this.data.durationTime * value / 100;
 
     // 3.设置context播放当前位置的音乐
-    audioContext.pause();
+    // audioContext.pause();
     audioContext.seek(currentTime / 1000);
 
     // 4.记录最新的sliderValue
@@ -172,8 +125,88 @@ Page({
 
     this.setData({
       isSliderChanging: true,
+      currentTime
+    });
+  },
+  handleBackClik: function () {
+    // 返回上一级
+    wx.navigateBack({});
+  },
+  // 切换模式
+  handleModeBtnClick: function () {
+    console.log('切换播放模式');
+    // 计算最新播放模式的index
+    let playModeIndex = this.data.playModeIndex + 1;
+    if (playModeIndex === 3) playModeIndex = 0;
+    // 设置播放模式
+    playerStore.setState("playModeIndex", playModeIndex);
+  },
+  // 播放暂停逻辑
+  handlePlayBtnClik: function () {
+    // 改变音乐的播放状态
+    playerStore.dispatch("changeMusicPlayStateAction", !this.data.isPlaying);
+  },
+  // 播放上一首
+  handlePrevBtnClick: function () {
+    playerStore.dispatch("changeNewMusicPrevAction");
+  },
+  // 播放下一首
+  handleNextBtnClick: function () {
+    playerStore.dispatch("changeNewMusicNextAction");
+  },
+  // ****************数据监听****************
+  setupPlayStoreListener: function () {
+    // 监听多个数据
+    playerStore.onStates([
+      "currentSong",
+      "durationTime",
+      "lyricInfos"
+    ], ({
+      currentSong,
+      durationTime,
+      lyricInfos
+    }) => {
+      if (currentSong) this.setData({ currentSong });
+      if (durationTime) this.setData({ durationTime });
+      if (lyricInfos) this.setData({ lyricInfos });
+    })
+
+    // 监听currentTime,currentLyricIndex,currentLyricText
+    playerStore.onStates([
+      "currentTime",
+      "currentLyricIndex",
+      "currentLyricText"
+    ],({
       currentTime,
-      sliderValue: value
+      currentLyricIndex,
+      currentLyricText
+    }) => {
+      // 时间变化
+      if (currentTime && !this.data.isSliderChanging) {
+        // 计算进度条的值
+        const sliderValue = currentTime / this.data.durationTime * 100;
+        this.setData({ currentTime, sliderValue });
+      }
+      // 歌词变化
+      if (currentLyricIndex) {
+        this.setData({ currentLyricIndex, lyricScrollTop: currentLyricIndex * 35 })
+      }
+      if (currentLyricText) {
+        this.setData({ currentLyricText });
+      }
+    })
+
+    // 监听播放模式相关数据
+    playerStore.onStates([
+      "playModeIndex",
+      "isPlaying"
+    ], ({ playModeIndex, isPlaying }) => {
+      if (playModeIndex !== undefined) {
+        this.setData({ playModeIndex, playModeName: playModeNames[playModeIndex] });
+      }
+      if (isPlaying !== undefined) {
+        this.setData({ isPlaying, playingName: isPlaying ? "pause" : "resume" });
+      }
     });
   }
 })

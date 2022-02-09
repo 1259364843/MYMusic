@@ -4,7 +4,7 @@
   <!-- 状态栏 -->
   <view class="status" style="height: {{ statusBarHeight }}px;"></view>
   <view class="nav-bar">
-    <view class="left">
+    <view class="left" bindtap="handleLeftClick">
     <!-- 插槽,可选 -->
     <view class="left-slot"><slot name="left"></slot></view>
     <view class="left-arrow">
