@@ -22,7 +22,6 @@ Page({
     onLoad: function (options) {
         //  1.获取传递的id
         const id = options.id;
-        console.log(id);
         // 2.获取页面的数据
         this.getPageData(id);
         // 3.其他逻辑
@@ -31,7 +30,6 @@ Page({
     getPageData: function (id) {
         // 1.请求播放地址
         getMVUrl(id).then(res => {
-            // console.log(res);
             this.setData({
                 mvURLInfo: res.data
             });
@@ -51,7 +49,6 @@ Page({
             this.setData({
                 relatedVideos: res.data
             });
-            console.log(this.data.relatedVideos);
         })
         
     },
