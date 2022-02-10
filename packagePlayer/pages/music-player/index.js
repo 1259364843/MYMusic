@@ -9,7 +9,7 @@
 import {
   audioContext,
   playerStore
-} from '../../store/index'
+} from '../../../store/index'
 
 // 播放模式数组
 const playModeNames = ["order", "repeat", "random"];

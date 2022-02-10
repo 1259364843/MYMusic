@@ -1,5 +1,5 @@
 <!--pages/music-player/index.wxml-->
-<wxs src="../../utils/format.wxs" module="format"></wxs>
+<wxs src="../../../utils/format.wxs" module="format"></wxs>
 <!-- 1.背景 -->
 <image class="bg-image" mode="aspectFill" src="{{ currentSong.al.picUrl }}"></image>
 <view class="bg-cover"></view>
@@ -44,11 +44,11 @@
     </view>
     <!-- 控制部分 -->
     <view class="operation">
-      <image class="btn btn-mode" src="/assets/images/player/play_{{ playModeName }}.png" bindtap="handleModeBtnClick"></image>
-      <image class="btn btn-prev" src="/assets/images/player/play_prev.png" bindtap="handlePrevBtnClick"></image>
-      <image class="btn btn-pause" src="/assets/images/player/play_{{ playingName }}.png" bindtap="handlePlayBtnClik"></image>
-      <image class="btn btn-next" src="/assets/images/player/play_next.png" bindtap="handleNextBtnClick"></image>
-      <image class="btn btn-music" src="/assets/images/player/play_music.png"></image>
+      <image class="btn btn-mode" src="/packagePlayer/assets/images/player/play_{{ playModeName }}.png" bindtap="handleModeBtnClick"></image>
+      <image class="btn btn-prev" src="/packagePlayer/assets/images/player/play_prev.png" bindtap="handlePrevBtnClick"></image>
+      <image class="btn btn-pause" src="/packagePlayer/assets/images/player/play_{{ playingName }}.png" bindtap="handlePlayBtnClik"></image>
+      <image class="btn btn-next" src="/packagePlayer/assets/images/player/play_next.png" bindtap="handleNextBtnClick"></image>
+      <image class="btn btn-music" src="/packagePlayer/assets/images/player/play_music.png"></image>
     </view>
   </swiper-item>
   <!-- 歌词部分 -->

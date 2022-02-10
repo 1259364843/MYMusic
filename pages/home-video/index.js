@@ -20,7 +20,6 @@ Page({
     },
     // 封装网络请求方法
     getTopMVData: async function (offset) {
-        console.log('执行网络请求');
         // 判断是否可以请求数据
         if (!this.data.hasMore && offset !== 0) return;
         // 展示加载动画
@@ -59,7 +58,7 @@ Page({
         const id = evnet.currentTarget.dataset.item.id;
         // 页面跳转
         wx.navigateTo({
-            url: `/pages/detail-video/index?id=${id}`,
+            url: `/packageDetail/pages/detail-video/index?id=${id}`,
         })
 
     },
@@ -71,7 +70,6 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: async function () {
-        console.log('滚动到底部');
         this.getTopMVData(this.data.topMVs.length);
     }
 })

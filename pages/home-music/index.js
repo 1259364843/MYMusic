@@ -78,13 +78,13 @@ Page({
   // 搜索框点击处理
   handleSearchClick: function () {
     wx.navigateTo({
-      url: '/pages/detail-search/index',
+      url: '/packageDetail/pages/detail-search/index',
     })
   },
   handleSwiperImageLoaded: function () {
     // 获取图片的高度(如果去获取某一个组件的高度)
     throttleQueryRect('.swiper-image').then(res => {
-      console.log('查询图片高度');
+      // console.log('查询图片高度');
       const rect = res[0];
       this.setData({
         swiperHeight: rect.height
@@ -99,18 +99,18 @@ Page({
   handleRankingItemClick: function(event) {
     const idx = event.currentTarget.dataset.idx
     const rankingName = rankingMap[idx]
-    console.log(rankingMap[idx]);
+    // console.log(rankingMap[idx]);
     this.navigateToDetailSongsPage(rankingName)
   },
   navigateToDetailSongsPage: function(rankingName) {
     wx.navigateTo({
       // &type=rank表示是榜单的数据
-      url: `/pages/detail-songs/index?ranking=${rankingName}&type=rank`,
+      url: `/packageDetail/pages/detail-songs/index?ranking=${rankingName}&type=rank`,
     })
   },
   handleSongItemClick: function (event) {
     const index = event.currentTarget.dataset.index;
-    console.log(index, this.data.recommendSongs);
+    // console.log(index, this.data.recommendSongs);
     playerStore.setState("playListSongs", this.data.recommendSongs);
     playerStore.setState("playListIndex", index);
   },
@@ -120,7 +120,7 @@ Page({
     return (res) => {
       // 判断对象中有没有值
       if (Object.keys(res).length === 0) return
-      console.log("idx:", idx)
+      // console.log("idx:", idx)
       const name = res.name
       // 封面图
       const coverImgUrl = res.coverImgUrl
@@ -143,7 +143,7 @@ Page({
       this.setData({
         rankings: newRankings
       })
-      console.log(this.data.rankings)
+      // console.log(this.data.rankings)
     }
   },
   setupPlayerStoreListener: function () {

@@ -10,7 +10,7 @@ App({
     // 机型宽高比
     const deviceRadio = info.screenHeight / info.screenWidth;
     this.globalData.deviceRadio = deviceRadio;
-    console.log(info);
+    // console.log(info);
   },
   globalData: {
     // 屏幕宽高

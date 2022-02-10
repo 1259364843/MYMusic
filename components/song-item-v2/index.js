@@ -32,7 +32,7 @@ Component({
     handleSongItemClick: function() {
       const id = this.properties.item.id
       wx.navigateTo({
-        url: '/pages/music-player/index?id=' + id,
+        url: '/packagePlayer/pages/music-player/index?id=' + id,
       })
       // 播放歌曲
       playerStore.dispatch("playMusicWithSongIdAction", { id });

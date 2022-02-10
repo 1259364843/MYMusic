@@ -2,7 +2,7 @@ import {
     getMVDetail,
     getRelatedVideo,
     getMVUrl
-} from "../../service/api_video";
+} from "../../../service/api_video";
 
 // pages/detail-video/index.js
 Page({
@@ -23,7 +23,7 @@ Page({
     onLoad: function (options) {
         //  1.获取传递的id
         const id = options.id;
-        console.log(id);
+        // console.log(id);
         // 2.获取页面的数据
         this.getPageData(id);
         // 3.其他逻辑
@@ -34,7 +34,7 @@ Page({
     getPageData: function (id) {
         // 1.请求播放地址
         getMVUrl(id).then(res => {
-            console.log(res);
+            // console.log(res);
             this.setData({
                 mvURLInfo: res.data
             });
@@ -42,7 +42,7 @@ Page({
 
         // 2.请求视频信息
         getMVDetail(id).then(res => {
-            console.log(res);
+            // console.log(res);
             this.setData({
                 mvDetail: res.data
             });
@@ -50,7 +50,7 @@ Page({
 
         // 3.请求相关视频
         getRelatedVideo(id).then(res => {
-            console.log(res);
+            // console.log(res);
             this.setData({
                 relatedVideos: res.data
             });

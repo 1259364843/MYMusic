@@ -27,7 +27,7 @@ Component({
       const id = this.properties.item.id
       // 页面跳转
       wx.navigateTo({
-        url: '/pages/music-player/index?id=' + id,
+        url: '/packagePlayer/pages/music-player/index?id=' + id,
       })
       // 发起歌曲的网络请求和其他操作,传入参数id
       playerStore.dispatch("playMusicWithSongIdAction", { id });
