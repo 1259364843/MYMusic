@@ -1,0 +1,15 @@
+<!--components/related-video-item/index.wxml-->
+<wxs src="../../utils/format.wxs" module="format"></wxs>
+<view class="item">
+  <view class="album">
+    <image class="image" mode="aspectFill" src="{{item.coverUrl}}"></image>
+    <view class="play-counter">{{format.formatCount(item.playTime)}}</view>
+  </view>
+  <view class="content">
+    <view class="content-title">{{item.title}}</view>
+    <view class="content-author">
+    {{item.creator[0].userName}}
+    </view>
+  </view>
+</view>
+

@@ -2,9 +2,37 @@
 page {
     padding-top: 225px;
 }
+
 .video {
     /* 固定定位，不滚动 */
     position: fixed;
     top: 0;
     width: 100%;
+}
+
+/* 视频信息区域 */
+.info {
+    padding: 20rpx;
+}
+
+.info .name {
+    padding: 20rpx 0;
+}
+
+.info-detail {
+    color: #999;
+    font-size: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content:first baseline;
+}
+.info-detail view {
+    flex: 1;
+}
+
+
+/* 相关视频 */
+
+.related-title{
+    margin: 20rpx;
 }

@@ -1,8 +1,23 @@
 <!--pages/detail-video/index.wxml-->
-<video class="video" 
-       src="{{mvURLInfo.url}}"
-       referrer-policy="origin"
-       autoplay
-       loop
-       >
+<wxs src="../../../utils/format.wxs" module="format"></wxs>
+<!-- 1.video区域 -->
+<video class="video" src="{{mvURLInfo.url}}" referrer-policy="origin" autoplay loop>
 </video>
+<!-- 2.标题 -->
+<view class="info">
+       <view class="name">{{mvDetail.name}}</view>
+       <view class="info-detail">
+              <view class="artists">{{mvDetail.artistName}}</view>
+              <view class="playCount">{{format.formatCount(mvDetail.playCount)}}次播放</view>
+              <view class="publishTime">{{mvDetail.publishTime}}</view>
+       </view>
+</view>
+
+<!-- 3.相关视频 -->
+
+<view class="related-videos">
+       <view class="related-title">相关视频</view>
+       <block wx:for="{{relatedVideos}}" wx:key="vid">
+              <related-video-item item="{{item}}"></related-video-item>
+       </block>
+</view>

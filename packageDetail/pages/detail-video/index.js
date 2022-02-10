@@ -14,7 +14,6 @@ Page({
         mvURLInfo: {},
         mvDetail: {},
         relatedVideos: {}
-
     },
 
     /**
@@ -23,12 +22,10 @@ Page({
     onLoad: function (options) {
         //  1.获取传递的id
         const id = options.id;
-        // console.log(id);
+        console.log(id);
         // 2.获取页面的数据
         this.getPageData(id);
         // 3.其他逻辑
-
-
 
     },
     getPageData: function (id) {
@@ -54,7 +51,9 @@ Page({
             this.setData({
                 relatedVideos: res.data
             });
+            console.log(this.data.relatedVideos);
         })
+        
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
