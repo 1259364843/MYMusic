@@ -32,7 +32,9 @@ page {
 
 
 /* 相关视频 */
-
+.related-videos {
+    margin-bottom: 40rpx;
+}
 .related-title{
     margin: 20rpx;
 }
