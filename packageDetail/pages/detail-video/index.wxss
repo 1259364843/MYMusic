@@ -33,6 +33,7 @@ page {
 
 /* 相关视频 */
 .related-videos {
+    margin: 0 15rpx;
     margin-bottom: 40rpx;
 }
 .related-title{
